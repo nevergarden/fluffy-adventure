@@ -48,6 +48,9 @@ void fa_grid_free(fa_grid_t* grid) {
   free(grid);
 }
 
+// Will return a cell / NULL if not found
 fa_cell_t* fa_grid_get_cell(fa_grid_t* grid, int row, int col) {
-  return grid->cells[(row * grid->row_count) + col];
+  if (col <= grid->column_count && row <= grid->row_count)
+    return grid->cells[(row * grid->row_count) + col];
+  return NULL;
 }

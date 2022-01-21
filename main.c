@@ -12,8 +12,9 @@ int main() {
     printf("\n");
   }
 
-  fa_cell_t* cell = fa_grid_get_cell(grid, 1, 2);
-  printf("%d\n", cell->id);
+  fa_cell_t* cell = fa_grid_get_cell(grid, 11, 2);
+  if(cell != NULL)
+    printf("%d\n", cell->id);
   fa_grid_free(grid);
   return 0;
 }
