@@ -1,16 +1,19 @@
 #include "cell.h"
+#include "grid.h"
 
 #include <stdio.h>
 
 int main()
 {
-    fa_cell_t * cell0 = fa_cell_init(0,0,0,NULL);
-    fa_cell_t * cell1 = fa_cell_init(1,0,1,NULL);
-    
-    fa_cell_set_neighbor(cell0, EAST, cell1); // cell1 is at east of cell0
-    fa_cell_link(cell0, cell1);
-    
-    fa_cell_free(cell0);
-    fa_cell_free(cell1);
-    return 0;
+  fa_grid_t * grid = fa_grid_init(4, 4);
+  for(int j = 0; j < 16; j++)
+  {
+    for(int i = 0; i < 4; i++)
+    {
+      printf("%d, ", grid->cells[j]->neighbors[i]);
+    }
+    printf("\n");
+  }
+   fa_grid_free(grid);
+  return 0;
 }
