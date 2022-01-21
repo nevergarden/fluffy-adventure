@@ -15,4 +15,5 @@ typedef struct fa_grid {
 
 fa_grid_t* fa_grid_init(size_t row_count, size_t column_count);
 void fa_grid_free(fa_grid_t* grid);
+fa_cell_t* fa_grid_get_cell(fa_grid_t*, int, int);
 #endif

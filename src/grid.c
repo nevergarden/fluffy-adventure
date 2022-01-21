@@ -47,3 +47,7 @@ void fa_grid_free(fa_grid_t* grid) {
   free(grid->cells);
   free(grid);
 }
+
+fa_cell_t* fa_grid_get_cell(fa_grid_t* grid, int row, int col) {
+  return grid->cells[(row * grid->row_count) + col];
+}
