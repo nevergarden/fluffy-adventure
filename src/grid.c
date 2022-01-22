@@ -1,5 +1,7 @@
 #include "grid.h"
 
+#include <string.h>
+
 void set_cell_neighbors(fa_grid_t* grid, int id, int row, int col) {
   if (row - 1 >= 0) {
     grid->cells[id]->neighbors[0] = (row - 1) * grid->row_count + col;
@@ -31,6 +33,27 @@ void configure_cells(fa_grid_t* grid) {
   }
 }
 
+int get_string_size_from_grid(fa_grid_t * grid) {
+  return (grid->column_count*4+2)*3*grid->row_count;
+}
+
+void fa_grid_to_string(fa_grid_t* grid) {
+  int string_count = get_string_size_from_grid(grid);
+  char maze_string[string_count];
+  int seperator_size = grid->column_count*4+3;
+  char seperator[seperator_size+1];
+  char body[3] = "   ";
+  char top[1] = "|";
+  char bottom[1] = "+";
+  
+  strcat(seperator, "+");
+  for (size_t i = 0; i < grid->column_count; i++)
+    strcat(seperator, "---+");
+  strcat(seperator, "\n");
+  strcat(seperator, "\0");
+  printf("%s", seperator);
+}
+
 fa_grid_t* fa_grid_init(size_t row_count, size_t column_count) {
   fa_grid_t* grid = malloc(sizeof(fa_grid_t));
   grid->row_count = row_count;
@@ -41,6 +64,7 @@ fa_grid_t* fa_grid_init(size_t row_count, size_t column_count) {
 }
 
 void fa_grid_free(fa_grid_t* grid) {
+  fa_grid_to_string(grid);
   for (size_t i = 0; i < grid->row_count * grid->column_count; i++)
     fa_cell_free(grid->cells[i]);
 
