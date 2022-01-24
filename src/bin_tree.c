@@ -29,7 +29,6 @@ void fa_bin_tree_on_grid(fa_grid_t * grid) {
     
     srand(time(NULL));
     int randomNumber = rand() % count;
-
     fa_cell_t * neighbor = grid->cells[neighbors[randomNumber]];
     fa_cell_link(cell, neighbor);
   }
