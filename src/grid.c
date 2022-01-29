@@ -33,39 +33,36 @@ void configure_cells(fa_grid_t* grid) {
   }
 }
 
-int get_string_size_from_grid(fa_grid_t * grid) {
-  return (grid->column_count*4+2)*3*grid->row_count;
+int get_string_size_from_grid(fa_grid_t* grid) {
+  return (grid->column_count * 4 + 2) * 3 * grid->row_count;
 }
 
 void fa_grid_print(fa_grid_t* grid) {
   int string_count = get_string_size_from_grid(grid);
   char maze_string[string_count];
-  int seperator_size = grid->column_count*4+3;
-  char * seperator = malloc(seperator_size+1);
-  memset(seperator, '\0', seperator_size+1);
-  
+  int seperator_size = grid->column_count * 4 + 3;
+  char* seperator = malloc(seperator_size + 1);
+  memset(seperator, '\0', seperator_size + 1);
+
   strcat(seperator, "+");
-  for (size_t i = 0; i < grid->column_count; i++)
-    strcat(seperator, "---+");
+  for (size_t i = 0; i < grid->column_count; i++) strcat(seperator, "---+");
   strcat(seperator, "\n\0");
   printf("%s", seperator);
 
-  for(size_t row = 0; row < grid->row_count; row++) {
-    char * top = malloc(seperator_size+3);
-    memset(top, '\0', seperator_size+3);
-    // strcat(top, "|   ");
-    char * bottom = malloc(seperator_size+1);
-    memset(bottom, '\0', seperator_size+1);
-    for (size_t column = 0; column < grid->column_count; column++)
-    {
-      fa_cell_t * cell = fa_grid_get_cell(grid, row, column);
+  for (size_t row = 0; row < grid->row_count; row++) {
+    char* top = malloc(seperator_size + 3);
+    memset(top, '\0', seperator_size + 3);
+    char* bottom = malloc(seperator_size + 1);
+    memset(bottom, '\0', seperator_size + 1);
+    for (size_t column = 0; column < grid->column_count; column++) {
+      fa_cell_t* cell = fa_grid_get_cell(grid, row, column);
 
-      if( fa_cell_has_west_link(cell) )
+      if (fa_cell_has_west_link(cell))
         strcat(top, "    ");
       else
         strcat(top, "|   ");
-      
-      if( fa_cell_has_south_link(cell) )
+
+      if (fa_cell_has_south_link(cell))
         strcat(bottom, "+   ");
       else
         strcat(bottom, "+---");
