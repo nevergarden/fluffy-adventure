@@ -37,7 +37,7 @@ int get_string_size_from_grid(fa_grid_t * grid) {
   return (grid->column_count*4+2)*3*grid->row_count;
 }
 
-void fa_grid_to_string(fa_grid_t* grid) {
+void fa_grid_print(fa_grid_t* grid) {
   int string_count = get_string_size_from_grid(grid);
   char maze_string[string_count];
   int seperator_size = grid->column_count*4+3;
@@ -59,32 +59,18 @@ void fa_grid_to_string(fa_grid_t* grid) {
     for (size_t column = 0; column < grid->column_count; column++)
     {
       fa_cell_t * cell = fa_grid_get_cell(grid, row, column);
-      if( fa_cell_has_east_link(cell) )
-      {
+
+      if( fa_cell_has_west_link(cell) )
+        strcat(top, "    ");
+      else
         strcat(top, "|   ");
-
-        // strcat(top, " ");
-        // char str[2];
-        // memset(str, ' ', 2);
-        // sprintf(str, "%d", cell->id);
-        // strcat(top, str);
-        // strcat(top, " ");
-      }
-      else {
-        strcat(top, "|   |");
-
-        // strcat(top, "| ");
-        // char str[2];
-        // sprintf(str, "%d", cell->id);
-        // strcat(top, str);
-        // strcat(top, "");
-      }
+      
       if( fa_cell_has_south_link(cell) )
         strcat(bottom, "+   ");
       else
         strcat(bottom, "+---");
     }
-    strcat(top, "\n\0");
+    strcat(top, "|\n\0");
     strcat(bottom, "+\n\0");
     printf("%s", top);
     printf("%s", bottom);
@@ -105,7 +91,6 @@ fa_grid_t* fa_grid_init(size_t row_count, size_t column_count) {
 }
 
 void fa_grid_free(fa_grid_t* grid) {
-  fa_grid_to_string(grid);
   for (size_t i = 0; i < grid->row_count * grid->column_count; i++)
     fa_cell_free(grid->cells[i]);
 
@@ -115,8 +100,7 @@ void fa_grid_free(fa_grid_t* grid) {
 
 // Will return a cell / NULL if not found
 fa_cell_t* fa_grid_get_cell(fa_grid_t* grid, int row, int col) {
-  // printf("%d\n", (row * grid->column_count) + col);
   if (col <= grid->column_count && row <= grid->row_count)
     return grid->cells[(row * grid->column_count) + col];
-  // return NULL;
+  return NULL;
 }
