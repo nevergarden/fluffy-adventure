@@ -18,12 +18,6 @@ enum relation {
   WEST = 0b1000,
 };
 
-#define f_is_neighbor(side, val)                             \
-  bool is_##side##_neighbor(fa_cell_t *cell1, int cell2ID) { \
-    if (cell1->neighbors[(val)] == cell2ID) return true;     \
-    return false;                                            \
-  }
-
 fa_cell_t *fa_cell_init(int id, int row, int column, fa_cell_t *cell);
 void fa_cell_set_neighbor(fa_cell_t *cell1, enum relation rel,
                           fa_cell_t *cell2);
