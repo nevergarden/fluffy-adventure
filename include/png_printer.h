@@ -10,7 +10,6 @@
 
 void libattopng_lineto(libattopng_t * png, int x0, int y0, int x1, int y1, uint32_t color)
 {
-    printf("(%d,%d)->(%d,%d)\n", x0,y0,y0,y1);
     int dx = abs(x1-x0); int sx = (x0 < x1) ? 1 : -1;
     int dy = -1*abs(y1-y0); int sy = (y0 < y1) ? 1 : -1;
     int err = dx+dy;
